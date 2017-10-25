@@ -1,0 +1,120 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="brum-global-variable">
+  <script>
+    /**
+     * `brum-global-variable`
+     * A component to easily define, edit and subscribe to global variables
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+
+    // Defining global variable object
+    var brumGlobalVariable = brumGlobalVariable || {};
+
+    /**
+     * WARNING DO NOT STORE ANY SENSITIVE DATA HERE
+     * All data CAN be editted within any browser console
+     */
+    Polymer({
+      is: 'brum-global-variable',
+      properties: {
+        /**
+         * key that is connected to value
+         */
+        key: String,
+        /**
+         * Value bound to key property
+         */
+        value: {
+          type: Object,
+          notify: true,
+          observer: '_valueChanged'
+        },
+        /**
+         * add readonly attribute to disabled editting, like so:
+         * <brum-global-variable key="foo" value="{{bar}}" readonly></brum-global-variable>
+         * This DOES NOT make the value readonly, but makes sure THIS element cant edit the value
+         * So if another component has <brum-global-variable key="foo" value="{{bar}}"></brum-global-variable>
+         * that component CAN edit the value
+         */
+        readonly: {
+          type: Boolean,
+          value: false,
+        }
+      },
+      /**
+       * Once component is attached, check if key is present
+       * check if key exists: yes --> reflect to component. no --> build global variable
+       * Set observers
+       */
+      attached: function () {
+        if (this.key) {
+          if (brumGlobalVariable[this.key]) {
+            if (this.value != brumGlobalVariable[this.key].value) {
+              this.value = brumGlobalVariable[this.key].value;
+            }
+          } else {
+            brumGlobalVariable[this.key] = {
+              value: this.value,
+              observers: [this],
+              isChanging: false,
+            };
+          }
+          this._setObserver(this.key);
+        } else {
+          throw new Error('Invalid Argument: The `key` property must be defined.');
+        }
+      },
+      /**
+       * Remove observers when component is detached from DOM
+       */
+      detached: function () {
+        var index = brumGlobalVariable[this.key].observers.indexOf(this);
+        if (index !== -1) {
+          brumGlobalVariable[this.key].observers.splice(index, 1);
+        }
+      },
+      /**
+       * Set current element as observer.
+       */
+      _setObserver: function (key) {
+        var index = brumGlobalVariable[key].observers.indexOf(this);
+        if (index === -1) {
+          brumGlobalVariable[key].observers.push(this);
+        }
+      },
+      /**
+       * Check if not readonly and if value is actually a new value
+       * Check if value doesnt already exist in global variable, and if variable isn't currently in changing state
+       * Check if key exists
+       */
+      _valueChanged: function (value, oldValue) {
+        if (!this.readonly && value != oldValue &&
+          brumGlobalVariable[this.key] &&
+          value != brumGlobalVariable[this.key].value &&
+          !brumGlobalVariable[this.key].isChanging) {
+          this._setValue(this.key, value);
+        }
+      },
+      /**
+       * Set variable to changing state (so it cant be overwritten in this process)
+       * Overwrite old value with new value
+       * Notify all observers (components)
+       * Change changing state to false
+       */
+      _setValue: function (key, value) {
+        brumGlobalVariable[key].isChanging = true;
+        brumGlobalVariable[key].value = value;
+        for (var i in brumGlobalVariable[key].observers) {
+          if (brumGlobalVariable[key].observers[i] != this) {
+            brumGlobalVariable[key].observers[i].set('value', value);
+          }
+        }
+        brumGlobalVariable[key].isChanging = false;
+      }
+    });
+  </script>
+</dom-module>
