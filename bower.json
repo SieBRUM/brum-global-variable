@@ -13,5 +13,8 @@
   },
   "resolutions": {
     "polymer": "^2.0.0"
+  },
+  "demos": {
+    "Basic demo": "demo/index.html"
   }
 }
