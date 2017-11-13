@@ -29,21 +29,11 @@
 ```
 -->
 ```html
-<dom-bind>
-  <template>
-    <brum-global-variable key="value" value="{{first}}">
-    </brum-global-variable>
-    <paper-input label="Will change others" value="{{first}}"></paper-input>
-  </template>
-</dom-bind>
+<brum-global-variable key="value" value="{{first}}"></brum-global-variable>
+<paper-input label="Will change others" value="{{first}}"></paper-input>
 
-<dom-bind>
-  <template>
-    <brum-global-variable key="value" value="{{second}}" readonly>
-    </brum-global-variable>
-    <paper-input label="Will not change others" value="{{second}}"></paper-input>
-  </template>
-</dom-bind>
+<brum-global-variable key="value" value="{{second}}" readonly></brum-global-variable>
+<paper-input label="Will not change others" value="{{second}}"></paper-input>
 ```
 
 # \<brum-global-variable\>
