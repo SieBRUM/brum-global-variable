@@ -16,7 +16,14 @@ bower install --save SieBrum/brum-global-variable
 
 ## How to use
 ```
+Import brum-global-variable into your component.
+
 <brum-global-var key="x-foo" value="{{x-bar}}"></brum-global-var>
+<brum-global-var key="x-foo" value="{{x-awesome}}"></brum-global-var>
+
+<brum-global-var key="alpha" value="{{beta}}" readonly></brum-global-var>
+
+<brum-global-var key="abc" value="{{xyz}}" value-changed="someCoolFunction"></brum-global-var>
 ```
 ## DEMO
 [webcomponents.org](https://www.webcomponents.org/element/SieBrum/brum-global-variable/demo/demo/index.html)

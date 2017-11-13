@@ -3,49 +3,42 @@
 
 <head>
   <meta charset="utf-8">
-  <meta key="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
   <title>brum-global-variable demo</title>
 
-  <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
-  <link rel="import" href="../bower_components/iron-demo-helpers/demo-snippet.html">
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+  <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+  <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+  <link rel="import" href="../../paper-input/paper-input.html">
   <link rel="import" href="../brum-global-variable.html">
 
-  <custom-style>
-    <style is="custom-style" include="demo-pages-shared-styles">
+  <style is="custom-style" include="demo-pages-shared-styles">
 
-    </style>
-  </custom-style>
+  </style>
 </head>
 
 <body>
+
   <div class="vertical-section-container centered">
+    <h3>This input will reflect to all other inputs</h3>
     <demo-snippet>
-      <dom-bind>
-        <template is="dom-bind">
-
-          <brum-global-var key="foo" value="{{bar}}"></brum-global-var>
-          <brum-global-var key="x-foo" value="{{x-bar}}"></brum-global-var>
-
-          <paper-input value="{{bar}}" label="variable 1"></paper-input>
-          <paper-input value="{{x-bar}}" label="variable 2"></paper-input>
-        </template>
-      </dom-bind>
+      <template id="demo" is="dom-bind">
+        <brum-global-var key="value" value="{{first}}"></brum-global-var>
+        <paper-input label="Will change others" value="{{first}}"></paper-input>
+      </template>
     </demo-snippet>
+  </div>
+
+  <div class="vertical-section-container centered">
+    <h3>brum-global-variable has readonly property so value cannot be overwritten by this binding</h3>
     <demo-snippet>
-      <dom-bind>
-        <template is="dom-bind">
-
-          <brum-global-var readonly key="foo" value="{{bar}}"></brum-global-var>
-          <brum-global-var key="x-foo" value="{{x-bar}}"></brum-global-var>
-
-          <paper-input value="{{bar}}" label="variable 1 (readonly)"></paper-input>
-          <paper-input value="{{x-bar}}" label="variable 2"></paper-input>
-        </template>
-      </dom-bind>
+      <template is="dom-bind">
+        <brum-global-var key="value" value="{{second}}" readonly></brum-global-var>
+        <paper-input label="Cannot change global variable" value="{{second}}"></paper-input>
+      </template>
     </demo-snippet>
-
   </div>
 </body>
 
