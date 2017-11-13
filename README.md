@@ -4,26 +4,14 @@
 ```
 <custom-element-demo>
   <template>
-<script src="../webcomponentsjs/webcomponents-lite.js"></script>
-<link rel="import" href="brum-global-variable.html">
-<link rel="import" href="../paper-input/paper-input.html">
-
-<dom-bind>
-  <template>
-    <brum-global-variable key="value" value="{{first}}">
-    </brum-global-variable>
-    <paper-input label="Will change others" value="{{first}}"></paper-input>
-  </template>
-</dom-bind>
-
-<dom-bind>
-  <template>
-    <brum-global-variable key="value" value="{{second}}" readonly>
-    </brum-global-variable>
-    <paper-input label="Will not change others" value="{{second}}"></paper-input>
-  </template>
-</dom-bind>
-    <next-code-block></next-code-block>
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="brum-global-variable.html">
+    <link rel="import" href="../paper-input/paper-input.html">
+    <dom-bind>
+        <template>    
+            <next-code-block></next-code-block>
+        </template>
+    </dom-bind>
   </template>
 </custom-element-demo>
 ```
