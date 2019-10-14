@@ -7,10 +7,10 @@
 
   <title>brum-global-variable test</title>
 
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../wct-browser-legacy/browser.js"></script>
 
-  <link rel="import" href="../brum-global-variable.html">
+  <script type="module" src="../brum-global-variable.js"></script>
 </head>
 
 <body>
@@ -21,16 +21,17 @@
     </template>
   </test-fixture>
 
-  <script>
-    suite('brum-global-variable', () => {
+  <script type="module">
+import '../brum-global-variable.js';
+suite('brum-global-variable', () => {
 
-      test('instantiating the element with default properties works', () => {
-        const element = fixture('BasicTestFixture');
-        assert.equal(element.value, 'hey');
-      });
+  test('instantiating the element with default properties works', () => {
+    const element = fixture('BasicTestFixture');
+    assert.equal(element.value, 'hey');
+  });
 
-    });
-  </script>
+});
+</script>
 
 </body>
 
